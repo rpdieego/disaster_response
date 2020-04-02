@@ -1,1 +1,1 @@
-web gunicorn disaster_response/run:app
+web: gunicorn --chdir disaster_response run:app
