@@ -3,7 +3,6 @@ import plotly
 import pandas as pd
 import re
 
-
 import nltk
 nltk.download(['punkt', 'stopwords','wordnet'])
 from nltk.stem import WordNetLemmatizer
@@ -16,7 +15,6 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
-
 
 app = Flask(__name__, template_folder='template')
 
@@ -125,9 +123,7 @@ def index():
         }
 
     ]
-
-    
-
+  
     
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
@@ -155,9 +151,3 @@ def go():
     )
 
 
-def main():
-    
-
-
-if __name__ == '__main__':
-    main()
