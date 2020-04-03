@@ -1,1 +1,1 @@
-web: gunicorn disaster_resp.py
+web: gunicorn disaster_response:app
