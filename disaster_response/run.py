@@ -16,7 +16,7 @@ from plotly.graph_objs import Bar
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
-from tokenize_function import tokenize
+import tokenize_function as tkf
 
 app = Flask(__name__, template_folder='template')
 

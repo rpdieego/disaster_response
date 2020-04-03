@@ -1,16 +1,8 @@
 import sys
-import nltk
-nltk.download(['punkt', 'stopwords','wordnet'])
 import pandas as pd
 import numpy as np
-import re
 from sqlalchemy import create_engine
 import pickle
-
-from nltk.tokenize import word_tokenize
-from nltk.stem.snowball import SnowballStemmer
-from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.corpus import stopwords
 
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
@@ -20,7 +12,7 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.svm import LinearSVC
 
-from disaster_response.tokenize_function import tokenize
+import tokenize_function as tkf
 
 
 def load_data(database_filepath):
@@ -44,41 +36,6 @@ def load_data(database_filepath):
 
     return X, Y, category_names
 
-
-def tokenize(text):
-    '''
-    INPUT: text (string to be cleaned and tokenized)
-
-    OUTPUT: clean_tokens (list cleaned tokens)
-
-    The function clean the strings (remove special characteres, numbers, set it all to lower case and strip),
-    tokenize, remove stop words, stemm and then lemmatize. All the tokens are stored as a list in clean_tokens;
-
-    '''
-    #Remove special characteres and swap numbers by "digit"
-    text = re.sub(r"[^a-zA-Z0-9]"," ",text)
-    text = re.sub(r"[0-9]", "digit ", text)
-
-    #Tokenize and remove stop words
-    tokens = word_tokenize(text)
-    tokens = [t for t in tokens if t not in stopwords.words("english")]
-
-    #Stemming
-    stemmed = [SnowballStemmer('english').stem(t) for t in tokens]
-
-    #Instantiate lemmatizer
-    lemmatizer = WordNetLemmatizer()
-
-    #Lemmatize, remove all upper cases and empty spaces
-    clean_tokens = []
-    for tok in stemmed:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
-    
-    return clean_tokens
-
-
-
 def build_model():
     '''
     INPUT: none
@@ -89,7 +46,7 @@ def build_model():
     '''
     # Hyper-parameters have been optimized using GridSearchCV
     pipeline = Pipeline([
-        ('vect',CountVectorizer(tokenizer=tokenize, ngram_range = (1,2))),
+        ('vect',CountVectorizer(tokenizer=tkf.tokenize, ngram_range = (1,2))),
         ('tfidf', TfidfTransformer()),
         ('clf',MultiOutputClassifier(OneVsRestClassifier(LinearSVC(), n_jobs=1)))  
                         ])

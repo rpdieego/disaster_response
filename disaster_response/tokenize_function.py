@@ -7,6 +7,15 @@ from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 
 def tokenize(text):
+    '''
+    INPUT: text (string to be cleaned and tokenized)
+
+    OUTPUT: clean_tokens (list cleaned tokens)
+
+    The function clean the strings (remove special characteres, numbers, set it all to lower case and strip),
+    tokenize, remove stop words, stemm and then lemmatize. All the tokens are stored as a list in clean_tokens;
+
+    '''
     
     #remove special characteres and swap numbers by 'digit'
     text = re.sub(r"[^a-zA-Z0-9]"," ",text)
