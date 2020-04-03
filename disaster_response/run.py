@@ -25,7 +25,11 @@ app = Flask(__name__, template_folder='template')
 @app.before_first_request
 
 def model_get_data():
-# load data
+
+    global df
+    global model
+
+    #load data
     engine = create_engine('sqlite:///../data/DisasterResponse.db')
     df = pd.read_sql_table('message', engine)
 
