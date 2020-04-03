@@ -20,6 +20,8 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.svm import LinearSVC
 
+from disaster_response.tokenize_function import tokenize
+
 
 def load_data(database_filepath):
     '''

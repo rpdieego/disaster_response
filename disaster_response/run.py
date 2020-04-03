@@ -23,12 +23,14 @@ app = Flask(__name__, template_folder='template')
 
 
 @app.before_first_request
-# load data
-engine = create_engine('sqlite:///../data/DisasterResponse.db')
-df = pd.read_sql_table('message', engine)
 
-# load model
-model = joblib.load("../models/classifier.pkl")
+def model_get_data():
+# load data
+    engine = create_engine('sqlite:///../data/DisasterResponse.db')
+    df = pd.read_sql_table('message', engine)
+
+    # load model
+    model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
