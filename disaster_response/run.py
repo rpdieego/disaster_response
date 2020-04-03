@@ -150,7 +150,3 @@ def go():
         classification_result=classification_results
     )
 
-
-if __name__ == '__main__':
-    app.run()
-
