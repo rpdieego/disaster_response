@@ -18,7 +18,7 @@ This projet consists on building an webbapp to classify messages into 36 categor
 
 ## Project Steps
 
-*   **ETL Pipeline** - Extract data from the .csv foles provided by Figure Eight, merge it into a PanDas dataframe, apply proper data cleaning and transformation and then save it into a sqlite3 database to be used at the supervised machine learning process;
+*   **ETL Pipeline** - Extract data from the .csv files provided by Figure Eight, merge it into a PanDas dataframe, apply proper data cleaning and transformation and then save it into a sqlite3 database to be used at the supervised machine learning process;
 *   **Machine Learning Pipeline** - Read data from the sqlite3 database, apply NLP (Natural Language Processing) techniques at the messages, and then run the machine running pipeline. Several models were tested, using the following metrics: Precision, Recall and F1-Score. Model hyper-parameters were optimized using GridSearchCV. Final model was saved into a pickle file;
 *   **Webapp Development** - App built using Boostrap templates and Flask;
 *   **Deploy** - Webapp was deployed into Heroku;
@@ -131,7 +131,7 @@ Metrics per category:
 
 | Category | Precision | Recall | F1-Score | Support |
 | ------ | ------ | ------ | ------ | ------ |
-| related | 0.85 | 0.96 | 0.89 | 3999 |
+| related | 0.85 | 0.93 | 0.89 | 3999 |
 | request | 0.72 | 0.64 | 0.68 | 860 |
 | offer | 0.00 | 0.00 | 0.00 | 26 |
 | aid related | 0.70 | 0.77 | 0.73 | 2157 |
