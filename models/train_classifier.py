@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 import pickle
 
 from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.metrics import classification_report
@@ -44,14 +45,21 @@ def build_model():
 
     Function builds the model as a machile learning learning pipeline
     '''
-    # Hyper-parameters have been optimized using GridSearchCV
+
     pipeline = Pipeline([
         ('vect',CountVectorizer(tokenizer=tkf.tokenize, ngram_range = (1,2))),
         ('tfidf', TfidfTransformer()),
         ('clf',MultiOutputClassifier(OneVsRestClassifier(LinearSVC(), n_jobs=1)))  
                         ])
+
+    parameters = {
+        'vect__ngram_range': ((1, 1), (1, 2)),
+        'vect__max_df': (0.5, 0.75, 1.0),    
+                 }
+    
+    cv = GridSearchCV(pipeline, param_grid=parameters, verbose=1, cv=5)
                         
-    return pipeline
+    return cv
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
